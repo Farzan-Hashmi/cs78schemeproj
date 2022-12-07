@@ -19,7 +19,16 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
     Pair('+', Pair(2, Pair(2, nil)))
     >>> scheme_eval(expr, create_global_frame())
     4
+
+    (* 3 4 (- 5 2) 1)
+    >>> expr = read_line('(* 3 4 (- 5 2) 1)')
+    >>> expr
+    Pair('*', Pair(3, Pair(4, Pair(Pair('-', Pair(5, Pair(2, nil))), Pair(1, nil)))))
+    >>> scheme_eval(expr, create_global_frame())
+    36
     """
+
+
     # Evaluate atoms
     if scheme_symbolp(expr):
         return env.lookup(expr)
@@ -34,7 +43,14 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
         return scheme_forms.SPECIAL_FORMS[first](rest, env)
     else:
         # BEGIN PROBLEM 3
-        "*** YOUR CODE HERE ***"
+
+        # go to the deepest level of the expression
+        #   Pair('+', Pair(2, Pair(2, nil))) for example
+
+
+        operation = scheme_eval(first, env)
+        args = rest.map(lambda arg: scheme_eval(arg, env))
+        return scheme_apply(operation, args, env)
         # END PROBLEM 3
 
 
@@ -46,11 +62,21 @@ def scheme_apply(procedure, args, env):
        assert False, "Not a Frame: {}".format(env)
     if isinstance(procedure, BuiltinProcedure):
         # BEGIN PROBLEM 2
+        # convert args to a Python list
+        # args is a Pair Object
+        # args.first is the first element of the Pair
+        # args.rest is the rest of the Pair
         "*** YOUR CODE HERE ***"
+        args_list = []
+        while args is not nil:
+            args_list.append(args.first)
+            args = args.rest
+        if procedure.need_env:
+            args_list.append(env)  
         # END PROBLEM 2
         try:
             # BEGIN PROBLEM 2
-            "*** YOUR CODE HERE ***"
+            return procedure.py_func(*args_list)
             # END PROBLEM 2
         except TypeError as err:
             raise SchemeError('incorrect number of arguments: {0}'.format(procedure))
@@ -82,6 +108,7 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 6
+
     return scheme_eval(expressions.first, env)  # replace this with lines of your own code
     # END PROBLEM 6
 

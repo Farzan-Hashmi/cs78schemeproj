@@ -46,9 +46,7 @@ class Frame:
         else:
             raise SchemeError('unknown identifier: {0}'.format(symbol))
 
-
         # END PROBLEM 1
-        raise SchemeError('unknown identifier: {0}'.format(symbol))
 
     def make_child_frame(self, formals, vals):
         """Return a new local frame whose parent is SELF, in which the symbols
