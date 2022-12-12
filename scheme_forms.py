@@ -36,9 +36,11 @@ def do_define_form(expressions, env):
     if scheme_symbolp(signature):
         # assigning a name to a value e.g. (define x (+ 1 2))
         validate_form(expressions, 2, 2)  # Checks that expressions is a list of length exactly 2
-        evaluatee = expressions.second.first
-        env.define(signature, scheme_eval_apply.scheme_eval(evaluatee, env))
+        # BEGIN PROBLEM 4
+        evaluatee = expressions.rest.first
+        env.define(signature, scheme_eval(evaluatee, env))
         return signature
+        # END PROBLEM 4
     elif isinstance(signature, Pair) and scheme_symbolp(signature.first):
         # defining a named procedure e.g. (define (f x y) (+ x y))
         # BEGIN PROBLEM 10
@@ -87,7 +89,7 @@ def do_lambda_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 7
-    return scheme_classes.LambdaProcedure(formals, expressions.second, env)
+    return LambdaProcedure(formals, expressions.rest, env)
     # END PROBLEM 7
 
 

@@ -109,10 +109,19 @@ def eval_all(expressions, env):
     # BEGIN PROBLEM 6
     if(expressions==nil):
         return None
-    else:
-        for i in range(0, len(expressions)-1):
-            scheme_eval(expressions[i], env)
-        return scheme_eval(expressions[len(expressions)-1], env)
+    
+    toReturn = nil     
+    currExpression = expressions  
+    print("Expressions:" + str(expressions))
+    for i in range(0, len(expressions)):
+        if(currExpression == nil):
+            break
+        toReturn = scheme_eval(currExpression.first, env)
+        currExpression = currExpression.rest
+    return toReturn
+    
+
+        
 
     # END PROBLEM 6
 
