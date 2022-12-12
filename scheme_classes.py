@@ -62,7 +62,21 @@ class Frame:
         if len(formals) != len(vals):
             raise SchemeError('Incorrect number of arguments to function call')
         # BEGIN PROBLEM 8
-        "*** YOUR CODE HERE ***"
+
+        currFormal = formals
+        currVal = vals
+        childFrame = Frame(self)
+
+        for i in range(0, len(formals)):
+            # check if formal is nil
+            childFrame.define(currFormal.first, vals.first)
+            currFormal = currFormal.rest
+            currVal = currVal.rest
+
+        return childFrame
+
+
+
         # END PROBLEM 8
 
 ##############
