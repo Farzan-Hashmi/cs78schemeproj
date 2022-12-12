@@ -59,6 +59,8 @@ class Frame:
         >>> env.make_child_frame(formals, expressions)
         <{a: 1, b: 2, c: 3} -> <Global Frame>>
         """
+
+
         if len(formals) != len(vals):
             raise SchemeError('Incorrect number of arguments to function call')
         # BEGIN PROBLEM 8
@@ -67,13 +69,14 @@ class Frame:
         currVal = vals
         childFrame = Frame(self)
 
-        for i in range(0, len(formals)):
-            # check if formal is nil
-            childFrame.define(currFormal.first, vals.first)
+        while currFormal != nil:
+            childFrame.define(currFormal.first, currVal.first)
             currFormal = currFormal.rest
             currVal = currVal.rest
 
         return childFrame
+
+
 
 
 

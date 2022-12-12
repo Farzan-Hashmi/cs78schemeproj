@@ -46,7 +46,6 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
 
         # go to the deepest level of the expression
         #   Pair('+', Pair(2, Pair(2, nil))) for example
-
         operation = scheme_eval(first, env)
         args = rest.map(lambda arg: scheme_eval(arg, env))
         return scheme_apply(operation, args, env)
@@ -81,7 +80,10 @@ def scheme_apply(procedure, args, env):
             raise SchemeError('incorrect number of arguments: {0}'.format(procedure))
     elif isinstance(procedure, LambdaProcedure):
         # BEGIN PROBLEM 9
-        "*** YOUR CODE HERE ***"
+        # create new child frame
+        nextFrame = procedure.env.make_child_frame(procedure.formals, args)
+        return scheme_eval(procedure.body, nextFrame)
+
         # END PROBLEM 9
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11
@@ -112,14 +114,13 @@ def eval_all(expressions, env):
     
     toReturn = nil     
     currExpression = expressions  
-    print("Expressions:" + str(expressions))
     for i in range(0, len(expressions)):
-        if(currExpression == nil):
+        if currExpression == nil:
             break
         toReturn = scheme_eval(currExpression.first, env)
         currExpression = currExpression.rest
     return toReturn
-    
+
 
         
 
