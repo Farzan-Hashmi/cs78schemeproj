@@ -47,7 +47,6 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
         # go to the deepest level of the expression
         #   Pair('+', Pair(2, Pair(2, nil))) for example
 
-
         operation = scheme_eval(first, env)
         args = rest.map(lambda arg: scheme_eval(arg, env))
         return scheme_apply(operation, args, env)
@@ -108,8 +107,13 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 6
+    if(expressions==nil):
+        return None
+    else:
+        for i in range(0, len(expressions)-1):
+            scheme_eval(expressions[i], env)
+        return scheme_eval(expressions[len(expressions)-1], env)
 
-    return scheme_eval(expressions.first, env)  # replace this with lines of your own code
     # END PROBLEM 6
 
 
