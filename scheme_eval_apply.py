@@ -82,7 +82,7 @@ def scheme_apply(procedure, args, env):
         # BEGIN PROBLEM 9
         # create new child frame
         nextFrame = procedure.env.make_child_frame(procedure.formals, args)
-        return scheme_eval(procedure.body, nextFrame)
+        return scheme_eval(procedure.body.first, nextFrame)
 
         # END PROBLEM 9
     elif isinstance(procedure, MuProcedure):
@@ -115,7 +115,7 @@ def eval_all(expressions, env):
     toReturn = nil     
     currExpression = expressions  
     for i in range(0, len(expressions)):
-        if currExpression == nil:
+        if(currExpression == nil):
             break
         toReturn = scheme_eval(currExpression.first, env)
         currExpression = currExpression.rest

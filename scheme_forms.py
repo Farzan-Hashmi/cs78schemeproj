@@ -48,8 +48,7 @@ def do_define_form(expressions, env):
         #   and then define the name to be the lambda procedure
         name = signature.first
         proc = expressions.rest
-        functionToBind = do_lambda_form(Pair(signature.rest, proc), env)
-        env.define(name, functionToBind)
+        env.define(name, do_lambda_form(Pair(signature.rest, proc), env))
         return name
 
         # END PROBLEM 10
@@ -96,6 +95,8 @@ def do_lambda_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 7
+    if len(expressions) > 2:
+        return LambdaProcedure(formals, Pair('begin', expressions.rest), env)
     return LambdaProcedure(formals, expressions.rest, env)
     # END PROBLEM 7
 
