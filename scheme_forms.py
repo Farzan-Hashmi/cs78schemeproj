@@ -47,8 +47,9 @@ def do_define_form(expressions, env):
         # we can just define the procedue to be a lambda procedure
         #   and then define the name to be the lambda procedure
         name = signature.first
-        proc = expressions.rest
-        env.define(name, do_lambda_form(Pair(signature.rest, proc), env))
+        formals =  signature.rest
+        body = expressions.rest
+        env.define(name, LambdaProcedure(formals, body, env))
         return name
 
         # END PROBLEM 10
@@ -95,8 +96,6 @@ def do_lambda_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 7
-    if len(expressions) > 2:
-        return LambdaProcedure(formals, Pair('begin', expressions.rest), env)
     return LambdaProcedure(formals, expressions.rest, env)
     # END PROBLEM 7
 
@@ -132,7 +131,14 @@ def do_and_form(expressions, env):
     False
     """
     # BEGIN PROBLEM 12
-    "*** YOUR CODE HERE ***"
+    if(expressions is nil):
+        return True
+    elif(expressions.rest is nil):
+        return scheme_eval(expressions.first, env, True)
+    if(is_scheme_false(scheme_eval(expressions.first, env))):
+        return False
+    else:
+        return do_and_form(expressions.rest, env)
     # END PROBLEM 12
 
 
@@ -151,7 +157,15 @@ def do_or_form(expressions, env):
     6
     """
     # BEGIN PROBLEM 12
-    "*** YOUR CODE HERE ***"
+    if(expressions is nil):
+        return True
+    elif(expressions.rest is nil):
+        return scheme_eval(expressions.first, env, True)
+    if(is_scheme_true(scheme_eval(expressions.first, env))):
+        return  scheme_eval(expressions.first, env)
+    else:
+        return do_or_form(expressions.rest, env)
+    # END PROBLEM 12
     # END PROBLEM 12
 
 
@@ -172,7 +186,10 @@ def do_cond_form(expressions, env):
             test = scheme_eval(clause.first, env)
         if is_scheme_true(test):
             # BEGIN PROBLEM 13
-            "*** YOUR CODE HERE ***"
+            if(len(clause) == 1):
+                return test
+            else:
+                return eval_all(clause.rest, env)
             # END PROBLEM 13
         expressions = expressions.rest
 
@@ -254,9 +271,10 @@ def do_mu_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 11
-    "*** YOUR CODE HERE ***"
+    return MuProcedure(formals, expressions.rest)
     # END PROBLEM 11
 
+   
 
 SPECIAL_FORMS = {
     'and': do_and_form,

@@ -145,6 +145,9 @@ class MuProcedure(Procedure):
         self.formals = formals
         self.body = body
 
+    def make_child_frame(self, args, env):
+        return env.make_child_frame(self.formals, args)
+
     def __str__(self):
         return str(Pair('mu', Pair(self.formals, self.body)))
 
