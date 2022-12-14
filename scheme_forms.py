@@ -215,7 +215,17 @@ def make_let_frame(bindings, env):
         raise SchemeError('bad bindings list in let form')
     names = vals = nil
     # BEGIN PROBLEM 14
-    "*** YOUR CODE HERE ***"
+    check_bindings = bindings
+    while not check_bindings is nil:
+        pair = check_bindings.first
+        validate_form(pair, 2, 2)
+        check_bindings = check_bindings.rest
+
+    names = bindings.map(lambda x: x.first)
+    validate_formals(names)
+    vals = bindings.map(lambda x: scheme_eval(x.rest.first,env))
+    if len(names)!=len(vals):
+        raise SchemeError('the number of the symbol is not equal to the number of corresponding expression')
     # END PROBLEM 14
     return env.make_child_frame(names, vals)
 
