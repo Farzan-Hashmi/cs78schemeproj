@@ -64,7 +64,8 @@ class Frame:
         if len(formals) != len(vals):
             raise SchemeError('Incorrect number of arguments to function call')
         # BEGIN PROBLEM 8
-
+        # We can run a recursive replacement while loop to make new Child Frams that will gradually contain the complete
+        # formals and values that we want
         currFormal = formals
         currVal = vals
         childFrame = Frame(self)

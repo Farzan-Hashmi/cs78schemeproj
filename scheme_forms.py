@@ -99,6 +99,7 @@ def do_lambda_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 7
+    # If we return a lambda procedure on the formals and the rest of the expressions, it will simply evaluate
     return LambdaProcedure(formals, expressions.rest, env)
     # END PROBLEM 7
 
