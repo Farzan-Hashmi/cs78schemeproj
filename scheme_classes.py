@@ -29,6 +29,7 @@ class Frame:
         """Define Scheme SYMBOL to have VALUE."""
         # BEGIN PROBLEM 1
         "*** YOUR CODE HERE ***"
+        # binding the symbol to value
         self.bindings[symbol] = value
         # END PROBLEM 1
 
@@ -36,13 +37,14 @@ class Frame:
         """Return the value bound to SYMBOL. Errors if SYMBOL is not found."""
         # BEGIN PROBLEM 1
         "*** YOUR CODE HERE ***"
-
+        # Check if symbol is defined. If so, then return its bound value
         if symbol in self.bindings:
             return self.bindings[symbol]
-
+        # Check if parent frame exists. If a parent frame has the symbol, then you can use that symbol's value.
+        #
         elif self.parent is not None:
             return self.parent.lookup(symbol) # recursive
-
+        # Otherwise, this will throw an error
         else:
             raise SchemeError('unknown identifier: {0}'.format(symbol))
 
@@ -59,8 +61,6 @@ class Frame:
         >>> env.make_child_frame(formals, expressions)
         <{a: 1, b: 2, c: 3} -> <Global Frame>>
         """
-
-
         if len(formals) != len(vals):
             raise SchemeError('Incorrect number of arguments to function call')
         # BEGIN PROBLEM 8

@@ -65,6 +65,8 @@ def scheme_apply(procedure, args, env):
         # args.first is the first element of the Pair
         # args.rest is the rest of the Pair
         "*** YOUR CODE HERE ***"
+        # Add all values of args to the args_list, then add the environment if it needs the environment.
+        # args_list is the list of arguments, in order, to apply
         args_list = []
         while args is not nil:
             args_list.append(args.first)
@@ -74,6 +76,7 @@ def scheme_apply(procedure, args, env):
         # END PROBLEM 2
         try:
             # BEGIN PROBLEM 2
+            # Return all the ran procedures unless it's not possible
             return procedure.py_func(*args_list)
             # END PROBLEM 2
         except TypeError as err:
