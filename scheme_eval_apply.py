@@ -1,3 +1,8 @@
+"""
+Name: Farzan Hashmi, Ngoc Pham, Kartikey Sharma
+Project Name: Scheme Interpreter
+Project Purpose: Read and Execute Scheme Code. This class works on executing code and doing actual operations
+"""
 import sys
 
 from pair import *

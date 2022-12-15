@@ -1,3 +1,8 @@
+"""
+Name: Farzan Hashmi, Ngoc Pham, Kartikey Sharma
+Project Name: Scheme Interpreter
+Project Purpose: Read and Execute Scheme Code. This Class works on handling Forms- a major part of user input
+"""
 from scheme_eval_apply import *
 from scheme_utils import *
 from scheme_classes import *
