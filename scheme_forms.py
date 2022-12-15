@@ -135,12 +135,16 @@ def do_and_form(expressions, env):
     False
     """
     # BEGIN PROBLEM 12
+    # This was a given in the prompt for the problem
     if(expressions is nil):
         return True
+    # Evaluate the first value in a pair with only 1 value
     elif(expressions.rest is nil):
         return scheme_eval(expressions.first, env, True)
+    # If the first evaluation returns false, short circuit
     if(is_scheme_false(scheme_eval(expressions.first, env))):
         return False
+    # otherwise comtinue the form, trying to make the expressions.rest nil
     else:
         return do_and_form(expressions.rest, env)
     # END PROBLEM 12
@@ -161,12 +165,16 @@ def do_or_form(expressions, env):
     6
     """
     # BEGIN PROBLEM 12
+    # Given in problem prompt
     if(expressions is nil):
         return True
+    # If only one value in Pair, only check if it's true
     elif(expressions.rest is nil):
         return scheme_eval(expressions.first, env, True)
+    # If the current first value is true, short circuit
     if(is_scheme_true(scheme_eval(expressions.first, env))):
-        return  scheme_eval(expressions.first, env)
+        return scheme_eval(expressions.first, env)
+    # Otherwise, continue the loop recursively
     else:
         return do_or_form(expressions.rest, env)
     # END PROBLEM 12
@@ -285,6 +293,7 @@ def do_mu_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 11
+    # Just returning the MuProcedure suffices, as all we do is evaluate a MuProcedure
     return MuProcedure(formals, expressions.rest)
     # END PROBLEM 11
 
