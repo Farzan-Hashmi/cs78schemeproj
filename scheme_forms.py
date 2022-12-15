@@ -37,6 +37,8 @@ def do_define_form(expressions, env):
         # assigning a name to a value e.g. (define x (+ 1 2))
         validate_form(expressions, 2, 2)  # Checks that expressions is a list of length exactly 2
         # BEGIN PROBLEM 4
+        # evaluatee is the 2nd value in the pair, and by defining it with the first value - signature - we can define a value
+        # in scheme
         evaluatee = expressions.rest.first
         env.define(signature, scheme_eval(evaluatee, env))
         return signature

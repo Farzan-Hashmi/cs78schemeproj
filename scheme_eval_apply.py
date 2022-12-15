@@ -46,7 +46,9 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
 
         # go to the deepest level of the expression
         #   Pair('+', Pair(2, Pair(2, nil))) for example
+        # This gives the evaluation of the first argument in args
         operation = scheme_eval(first, env)
+        # This recursive call ensures that all arguments in args will be called
         args = rest.map(lambda arg: scheme_eval(arg, env))
         return scheme_apply(operation, args, env)
         # END PROBLEM 3
