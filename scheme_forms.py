@@ -167,8 +167,8 @@ def do_or_form(expressions, env):
     # BEGIN PROBLEM 12
     # Given in problem prompt
     if(expressions is nil):
-        return True
-    # If only one value in Pair, only check if it's true
+        return False
+    # If only one value in Pair, only check if it's Fakse
     elif(expressions.rest is nil):
         return scheme_eval(expressions.first, env, True)
     # If the current first value is true, short circuit
