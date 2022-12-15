@@ -198,9 +198,11 @@ def do_cond_form(expressions, env):
             test = scheme_eval(clause.first, env)
         if is_scheme_true(test):
             # BEGIN PROBLEM 13
+            # If there is only one condition, return the first condition's output
             if(len(clause) == 1):
                 return test
             else:
+                # Otherwise, return the evaluation of all the other outputs
                 return eval_all(clause.rest, env)
             # END PROBLEM 13
         expressions = expressions.rest
@@ -227,6 +229,8 @@ def make_let_frame(bindings, env):
         raise SchemeError('bad bindings list in let form')
     names = vals = nil
     # BEGIN PROBLEM 14
+    #This maps the bindings to names, and maps the evaluations of these to vals,
+    # This makes a new frame afterwards
     check_bindings = bindings
     while not check_bindings is nil:
         pair = check_bindings.first
