@@ -86,6 +86,7 @@ def scheme_apply(procedure, args, env):
     elif isinstance(procedure, LambdaProcedure):
         # BEGIN PROBLEM 9
         # create new child frame
+        # after making child frame, evaluate the body of the frame.
         nextFrame = procedure.env.make_child_frame(procedure.formals, args)
         return eval_all(procedure.body, nextFrame)
 
