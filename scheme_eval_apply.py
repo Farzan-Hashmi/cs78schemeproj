@@ -115,11 +115,13 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 6
+    # Check if theres anything to evaluate
     if(expressions==nil):
         return None
-    
     toReturn = nil     
-    currExpression = expressions  
+    currExpression = expressions
+    # currExpression updates every time to become smaller, while toReturn updates to contain
+    # the evaluation of the element that currExpression removes.
     for i in range(0, len(expressions)):
         if(currExpression == nil):
             break
